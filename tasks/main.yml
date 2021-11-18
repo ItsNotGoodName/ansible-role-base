@@ -7,5 +7,5 @@
       skip: true
 
 - import_tasks: os.yml
-- import_tasks: users.yml
 - import_tasks: groups.yml
+- import_tasks: users.yml
