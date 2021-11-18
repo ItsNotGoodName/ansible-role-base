@@ -1,7 +1,11 @@
 ansible-role-base
 =========
 
-A brief description of the role goes here.
+A role that setups a base Linux system. 
+
+- Install and configure packages
+- Create users and groups
+- Update system using the `base_update` tag
 
 Requirements
 ------------
