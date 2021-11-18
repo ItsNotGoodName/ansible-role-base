@@ -35,4 +35,3 @@
   loop: "{{ base_users | rejectattr('authorized_keys', 'undefined') | subelements('authorized_keys') }}"
   tags: base
   become: true
-

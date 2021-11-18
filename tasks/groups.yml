@@ -7,4 +7,3 @@
   loop: "{{ base_groups }}"
   tags: base
   become: true
-

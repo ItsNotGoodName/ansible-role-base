@@ -14,20 +14,20 @@
   become: true
 
 - block:
-  - name: Update system (RedHat)
-    yum:
-      name: '*'
-      state: latest
-    become: true
-    tags: never, base_update
+    - name: Update system (RedHat)
+      yum:
+        name: '*'
+        state: latest
+      become: true
+      tags: never, base_update
   when: ansible_os_family == 'RedHat'
   become: true
 
 - block:
     - name: Update system (Arch)
       pacman:
-        update_cache: yes
-        upgrade: yes
+        update_cache: true
+        upgrade: true
       tags: never, base_update
   when: ansible_os_family == 'Arch'
   become: true
@@ -53,6 +53,7 @@
   copy:
     src: tmux.conf
     dest: /etc/tmux.conf
+    mode: 0644
   become: true
   tags: base
 
@@ -69,4 +70,3 @@
   become: true
   tags: base
   when: base_hostname | default(False)
-
