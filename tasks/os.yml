@@ -1,0 +1,72 @@
+---
+- block:
+  - name: Only run "update_cache=yes" if last one is more than 3600 seconds ago
+    apt:
+      update_cache: true
+      cache_valid_time: 3600
+    changed_when: false
+    tags: base, base_update
+  - name: Update system (Debian)
+    apt:
+      upgrade: dist
+    tags: never, base_update
+  when: ansible_os_family == 'Debian'
+  become: true
+
+- block:
+  - name: Update system (RedHat)
+    yum:
+      name: '*'
+      state: latest
+    become: true
+    tags: never, base_update
+  when: ansible_os_family == 'RedHat'
+  become: true
+
+- block:
+    - name: Update system (Arch)
+      pacman:
+        update_cache: yes
+        upgrade: yes
+      tags: never, base_update
+  when: ansible_os_family == 'Arch'
+  become: true
+
+- name: Install base packages
+  package:
+    name: "{{ base_packages }}"
+    state: present
+  become: true
+  tags: base
+
+- name: Set vi mode for bash
+  lineinfile:
+    line: "{{ item }}"
+    dest: "{{ base_file_bashrc }}"
+  loop:
+    - set -o vi
+    - bind -m vi-insert "\C-l":clear-screen
+  become: true
+  tags: base
+
+- name: Copy tmux.conf to /etc/tmux.conf
+  copy:
+    src: tmux.conf
+    dest: /etc/tmux.conf
+  become: true
+  tags: base
+
+- name: Set timezone
+  timezone:
+    name: "{{ base_timezone }}"
+  become: true
+  tags: base
+  when: base_timezone | default(False)
+
+- name: Set hostname
+  hostname:
+    name: "{{ base_hostname }}"
+  become: true
+  tags: base
+  when: base_hostname | default(False)
+

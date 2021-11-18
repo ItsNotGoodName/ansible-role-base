@@ -5,3 +5,4 @@
     - name: "Include ansible-role-base"
       include_role:
         name: "ansible-role-base"
+      tags: always

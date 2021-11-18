@@ -1,0 +1,38 @@
+---
+- name: Add deployment user to base_users
+  set_fact:
+    base_users: "{{ base_users + [{'name': base_user_name, 'shell': base_user_shell, 'authorized_keys': base_user_authorized_keys}] }}"
+  when: base_user_enable | bool
+  tags: base
+
+- name: Create users
+  user:
+    append: true
+    create_home: "{{ item.create_home | default(omit) }}"
+    generate_ssh_key: "{{ item.generate_ssh_key | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    groups: "{{ item.groups | default([]) }}"
+    home: "{{ item.home | default(omit) }}"
+    name: "{{ item.name }}"
+    shell: "{{ item.shell | default(base_user_shell) }}"
+    ssh_key_bits: "{{ item.ssh_key_bits | default(omit) }}"
+    ssh_key_comment: "{{ item.ssh_key_comment | default(omit) }}"
+    ssh_key_file: "{{ item.ssh_key_file | default(omit) }}"
+    ssh_key_passphrase: "{{ item.ssh_key_passphrase | default(omit) }}"
+    ssh_key_type: "{{ item.ssh_key_type | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+    system: "{{ item.system | default(omit) }}"
+    uid: "{{ item.uid | default(omit) }}"
+  loop: "{{ base_users }}"
+  tags: base
+  become: true
+
+- name: Set authorized keys for users
+  authorized_key:
+    user: "{{ item.0.name }}"
+    key: "{{ item.1 }}"
+    state: "{{ item.0.key_state | default('present') }}"
+  loop: "{{ base_users | rejectattr('authorized_keys', 'undefined') | subelements('authorized_keys') }}"
+  tags: base
+  become: true
+
