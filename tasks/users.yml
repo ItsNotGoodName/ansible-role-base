@@ -35,3 +35,21 @@
   loop: "{{ base_users | rejectattr('authorized_keys', 'undefined') | subelements('authorized_keys') }}"
   tags: base
   become: true
+
+- name: Check if sudoers file exists
+  stat:
+    path: /etc/sudoers
+  register: sudoers_register
+  become: true
+  tags: base
+
+- name: Add passwordless sudo rights to deployment user
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "^{{ base_user_name }}"
+    line: "{{ base_user_name }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "visudo -cf %s"
+    state: present
+  become: true
+  tags: base
+  when: sudoers_register.stat.exists

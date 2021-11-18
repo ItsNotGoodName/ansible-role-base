@@ -5,6 +5,8 @@ A role that setups a base Linux system.
 
 - Install and configure packages
 - Create users and groups
+- Create deployment user
+- Give deployment user sudo without password if sudo is installed
 - Update system using the `base_update` tag
 
 Requirements
