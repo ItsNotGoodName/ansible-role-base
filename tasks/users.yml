@@ -1,10 +1,4 @@
 ---
-- name: Add deployment user to base_users
-  set_fact:
-    base_users: "{{ base_users + [{'name': base_user_name, 'shell': base_user_shell, 'authorized_keys': base_user_authorized_keys}] }}"
-  when: base_user_enable | bool
-  tags: base
-
 - name: Create users
   user:
     append: true
@@ -14,7 +8,7 @@
     groups: "{{ item.groups | default([]) }}"
     home: "{{ item.home | default(omit) }}"
     name: "{{ item.name }}"
-    shell: "{{ item.shell | default(base_user_shell) }}"
+    shell: "{{ item.shell | default(omit) }}"
     ssh_key_bits: "{{ item.ssh_key_bits | default(omit) }}"
     ssh_key_comment: "{{ item.ssh_key_comment | default(omit) }}"
     ssh_key_file: "{{ item.ssh_key_file | default(omit) }}"
@@ -35,21 +29,3 @@
   loop: "{{ base_users | rejectattr('authorized_keys', 'undefined') | subelements('authorized_keys') }}"
   tags: base
   become: true
-
-- name: Check if sudoers file exists
-  stat:
-    path: /etc/sudoers
-  register: sudoers_register
-  become: true
-  tags: base
-
-- name: Add passwordless sudo rights to deployment user
-  lineinfile:
-    dest: /etc/sudoers
-    regexp: "^{{ base_user_name }}"
-    line: "{{ base_user_name }} ALL=(ALL) NOPASSWD: ALL"
-    validate: "visudo -cf %s"
-    state: present
-  become: true
-  tags: base
-  when: sudoers_register.stat.exists

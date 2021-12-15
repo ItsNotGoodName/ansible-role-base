@@ -7,14 +7,9 @@ base_packages:
   - tmux
   - vim
 
-# Deployment user configuration
-base_user_enable: true
-base_user_name: ansible
-base_user_shell: /bin/bash
-base_user_authorized_keys: []
-
 # List of users to create
 base_users: []
+
 # List of groups to create
 base_groups: []
 

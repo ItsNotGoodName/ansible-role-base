@@ -1,44 +1,38 @@
-ansible-role-base
-=========
+# ansible-role-base
 
-A role that setups a base Linux system. 
+A role that setups a base Linux system.
 
-- Install and configure packages
-- Create users and groups
-- Create deployment user
-- Give deployment user sudo without password if sudo is installed
 - Update system using the `base_update` tag
+- Install and configure packages
+- Optionally Set hostname and timezone
+- Create groups and users
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+N/A
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`base_hostname` sets the server's hostname.
 
-Dependencies
-------------
+`base_timezone` sets the server's timezone (e.g. `America/Los_Angeles`).
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Dependencies
 
-Example Playbook
-----------------
+N/A
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Example Playbook
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: all
+  roles:
+    - itsnotgoodname.base
+```
 
-License
--------
+## License
 
 MIT
 
-Author Information
-------------------
+## Author Information
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+ItsNotGoodName
