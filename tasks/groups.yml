@@ -1,4 +1,10 @@
 ---
+- name: Merge base_groups_* variables and base_groups variable
+  set_fact:
+    base_groups: "{{ base_groups + lookup('vars', item) }}"
+  loop: "{{ lookup('varnames', 'base_groups_', wantlist=True) }}"
+  tags: base
+
 - name: Create groups
   group:
     name: "{{ item.name }}"

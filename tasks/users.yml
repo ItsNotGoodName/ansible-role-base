@@ -1,4 +1,10 @@
 ---
+- name: Merge base_users_* variables and base_users variable
+  set_fact:
+    base_users: "{{ base_users + lookup('vars', item) }}"
+  loop: "{{ lookup('varnames', 'base_users_', wantlist=True) }}"
+  tags: base
+
 - name: Create users
   user:
     append: true
