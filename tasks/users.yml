@@ -33,6 +33,6 @@
     key: "{% for k in item.authorized_keys %}{{ k }}\n{% endfor %}"
     exclusive: "{{ item.authorized_keys_exclusive | default(omit) }}"
     state: present
-  loop: "{{ base_users }}"
+  loop: "{{ base_users | rejectattr('authorized_keys', 'undefined') }}"
   tags: base
   become: true
