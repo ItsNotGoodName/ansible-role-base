@@ -5,6 +5,7 @@ base_packages:
   - git
   - htop
   - tmux
+  - unzip
   - vim
 
 # List of users to create
