@@ -4,6 +4,9 @@ base_packages:
   - curl
   - git
   - htop
+  - ncdu
+  - ranger
+  - rsync
   - tmux
   - unzip
   - vim
@@ -16,7 +19,6 @@ base_groups: []
 
 # File path to system bashrc configuration
 base_file_bashrc: /etc/bash.bashrc
-
 ## Optional variables
 # base_hostname: CHANGEME
 # base_timezone: CHANGEME
