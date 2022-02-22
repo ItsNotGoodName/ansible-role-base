@@ -5,6 +5,7 @@
     - files:
         - "vars/{{ ansible_os_family }}.yml"
       skip: true
+  tags: base
 
 - import_tasks: os.yml
 - import_tasks: groups.yml
