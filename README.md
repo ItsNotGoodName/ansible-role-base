@@ -1,6 +1,6 @@
 # ansible-role-base
 
-Ansible role that setups a base Linux system.
+Setup a base Linux system.
 
 - Update system using the `base_update` tag
 - Install and configure packages
