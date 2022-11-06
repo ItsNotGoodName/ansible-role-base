@@ -17,8 +17,9 @@ base_users: []
 # List of groups to create
 base_groups: []
 
-# File path to system bashrc configuration
-base_file_bashrc: /etc/bash.bashrc
+# File path to system shell configuration
+base_shell: /bin/bash
+base_file_rc: /etc/bash.bashrc
 ## Optional variables
 # base_hostname: CHANGEME
 # base_timezone: CHANGEME

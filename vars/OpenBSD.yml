@@ -1,0 +1,11 @@
+---
+base_shell: /bin/ksh
+base_file_rc: /etc/ksh.kshrc
+base_packages:
+  - curl
+  - git
+  - htop
+  - ncdu
+  - ranger
+  - rsync--
+  - vim--no_x11

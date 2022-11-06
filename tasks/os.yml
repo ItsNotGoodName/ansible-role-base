@@ -1,22 +1,22 @@
 ---
 - block:
-  - name: Only run "update_cache=yes" if last one is more than 3600 seconds ago
-    apt:
-      update_cache: true
-      cache_valid_time: 3600
-    changed_when: false
-    tags: base, base_update
-  - name: Update system (Debian)
-    apt:
-      upgrade: dist
-    tags: never, base_update
+    - name: Only run "update_cache=yes" if last one is more than 3600 seconds ago
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      changed_when: false
+      tags: base, base_update
+    - name: Update system (Debian)
+      apt:
+        upgrade: dist
+      tags: never, base_update
   when: ansible_os_family == 'Debian'
   become: true
 
 - block:
     - name: Update system (RedHat)
       yum:
-        name: '*'
+        name: "*"
         state: latest
       become: true
       tags: never, base_update
@@ -39,10 +39,10 @@
   become: true
   tags: base
 
-- name: Set vi mode for bash
+- name: Set vi mode for shell
   lineinfile:
     line: "{{ item }}"
-    dest: "{{ base_file_bashrc }}"
+    dest: "{{ base_file_rc }}"
   loop:
     - set -o vi
     - bind -m vi-insert "\C-l":clear-screen

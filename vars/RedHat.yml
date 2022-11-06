@@ -1,2 +1,2 @@
 ---
-base_file_bashrc: /etc/bashrc
+base_file_rc: /etc/bashrc
