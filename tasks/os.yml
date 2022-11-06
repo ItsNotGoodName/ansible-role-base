@@ -53,7 +53,7 @@
     - bind -m vi-insert "\C-l":clear-screen
   become: true
   tags: base
-  when: base_vi_mode | bool
+  when: (base_vi_mode | bool) and base_rc_file != ""
 
 - name: Copy tmux.conf to /etc/tmux.conf
   ansible.builtin.copy:

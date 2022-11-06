@@ -9,4 +9,4 @@ base_packages:
   - vim--no_x11
 base_sudo_group: wheel
 base_shell: /bin/ksh
-base_rc_file: /etc/rc
+base_rc_file: ""
