@@ -1,11 +1,14 @@
 # ansible-role-base
 
-Setup a base Linux system.
+Setup a base Linux/OpenBSD system.
 
-- Update system using the `base_update` tag
 - Install and configure packages
+- Update packages using the `base_update` tag
 - Set hostname and timezone
 - Create groups and users
+- Better default `tmux.conf`
+- Exclusive authorized ssh keys
+- Vi mode for shell
 
 ## Requirements
 
