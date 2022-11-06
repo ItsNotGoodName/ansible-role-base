@@ -36,6 +36,16 @@
         upgrade: true
       tags: never, base_update
 
+- name: Pkg update
+  when: ansible_os_family == 'OpenBSD'
+  become: true
+  block:
+    - name: Update system (OpenBSD)
+      community.general.openbsd_pkg:
+        name: "*"
+        state: latest
+      tags: never, base_update
+
 - name: Install base packages
   ansible.builtin.package:
     name: "{{ base_packages }}"
