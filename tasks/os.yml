@@ -1,46 +1,50 @@
 ---
-- block:
+- name: Apt update
+  when: ansible_os_family == 'Debian'
+  become: true
+  block:
     - name: Only run "update_cache=yes" if last one is more than 3600 seconds ago
-      apt:
+      ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
       changed_when: false
       tags: base, base_update
+
     - name: Update system (Debian)
-      apt:
+      ansible.builtin.apt:
         upgrade: dist
       tags: never, base_update
-  when: ansible_os_family == 'Debian'
-  become: true
 
-- block:
+- name: Yum update
+  when: ansible_os_family == 'RedHat'
+  become: true
+  block:
     - name: Update system (RedHat)
-      yum:
+      ansible.builtin.yum:
         name: "*"
         state: latest
       become: true
       tags: never, base_update
-  when: ansible_os_family == 'RedHat'
-  become: true
 
-- block:
+- name: Pacman update
+  when: ansible_os_family == 'Arch'
+  become: true
+  block:
     - name: Update system (Arch)
-      pacman:
+      ansible.builtin.pacman:
         update_cache: true
         upgrade: true
       tags: never, base_update
-  when: ansible_os_family == 'Arch'
-  become: true
 
 - name: Install base packages
-  package:
+  ansible.builtin.package:
     name: "{{ base_packages }}"
     state: present
   become: true
   tags: base
 
 - name: Set vi mode for shell
-  lineinfile:
+  ansible.builtin.lineinfile:
     line: "{{ item }}"
     dest: "{{ base_rc_file }}"
     insertbefore: BOF
@@ -52,7 +56,7 @@
   when: base_vi_mode | bool
 
 - name: Copy tmux.conf to /etc/tmux.conf
-  copy:
+  ansible.builtin.copy:
     src: tmux.conf
     dest: /etc/tmux.conf
     mode: 0644
@@ -60,14 +64,14 @@
   tags: base
 
 - name: Set timezone
-  timezone:
+  ansible.builtin.timezone:
     name: "{{ base_timezone }}"
   become: true
   tags: base
   when: base_timezone | default(False)
 
 - name: Set hostname
-  hostname:
+  ansible.builtin.hostname:
     name: "{{ base_hostname }}"
   become: true
   tags: base

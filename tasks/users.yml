@@ -1,12 +1,12 @@
 ---
 - name: Merge base_users_* variables and base_users variable
-  set_fact:
+  ansible.builtin.set_fact:
     base_users: "{{ base_users + lookup('vars', item) }}"
   loop: "{{ lookup('varnames', 'base_users_', wantlist=True) }}"
   tags: base
 
 - name: Create users
-  user:
+  ansible.builtin.user:
     append: true
     create_home: "{{ item.create_home | default(omit) }}"
     generate_ssh_key: "{{ item.generate_ssh_key | default(omit) }}"
@@ -28,7 +28,7 @@
   become: true
 
 - name: Set authorized keys for users
-  authorized_key:
+  ansible.builtin.authorized_key:
     user: "{{ item.name }}"
     key: "{% for k in item.authorized_keys %}{{ k }}\n{% endfor %}"
     exclusive: "{{ item.authorized_keys_exclusive | default(omit) }}"

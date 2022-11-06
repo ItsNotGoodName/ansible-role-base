@@ -27,7 +27,7 @@ base_shell: /bin/bash
 base_rc_file: /etc/bash.bashrc
 
 # Enable vi mode for shell
-base_vi_mode: false
+base_vi_mode: true
 ## Optional variables
 # base_hostname: CHANGEME
 # base_timezone: CHANGEME

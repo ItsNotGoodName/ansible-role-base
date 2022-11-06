@@ -1,12 +1,17 @@
 ---
 - name: Include OS-specific variables
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
         - "vars/{{ ansible_os_family }}.yml"
       skip: true
   tags: base
 
-- import_tasks: os.yml
-- import_tasks: groups.yml
-- import_tasks: users.yml
+- name: OS tasks
+  ansible.builtin.import_tasks: os.yml
+
+- name: Group tasks
+  ansible.builtin.import_tasks: groups.yml
+
+- name: Users tasks
+  ansible.builtin.import_tasks: users.yml

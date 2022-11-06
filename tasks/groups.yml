@@ -1,12 +1,12 @@
 ---
 - name: Merge base_groups_* variables and base_groups variable
-  set_fact:
+  ansible.builtin.set_fact:
     base_groups: "{{ base_groups + lookup('vars', item) }}"
   loop: "{{ lookup('varnames', 'base_groups_', wantlist=True) }}"
   tags: base
 
 - name: Create groups
-  group:
+  ansible.builtin.group:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
     gid: "{{ item.gid | default(omit) }}"
