@@ -42,12 +42,14 @@
 - name: Set vi mode for shell
   lineinfile:
     line: "{{ item }}"
-    dest: "{{ base_file_rc }}"
+    dest: "{{ base_rc_file }}"
+    insertbefore: BOF
   loop:
     - set -o vi
     - bind -m vi-insert "\C-l":clear-screen
   become: true
   tags: base
+  when: base_vi_mode | bool
 
 - name: Copy tmux.conf to /etc/tmux.conf
   copy:

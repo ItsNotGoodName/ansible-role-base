@@ -1,2 +1,3 @@
 ---
-base_file_rc: /etc/bashrc
+base_sudo_group: wheel
+base_rc_file: /etc/bashrc

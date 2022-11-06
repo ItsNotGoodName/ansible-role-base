@@ -17,9 +17,17 @@ base_users: []
 # List of groups to create
 base_groups: []
 
+# Group that has super user privileges
+base_sudo_group: sudo
+
 # File path to system shell configuration
 base_shell: /bin/bash
-base_file_rc: /etc/bash.bashrc
+
+# File that is sourced
+base_rc_file: /etc/bash.bashrc
+
+# Enable vi mode for shell
+base_vi_mode: false
 ## Optional variables
 # base_hostname: CHANGEME
 # base_timezone: CHANGEME
