@@ -10,11 +10,11 @@ Setup a base Linux/OpenBSD system.
 - Exclusive authorized ssh keys
 - Vi mode for shell
 
-## Requirements
+# Requirements
 
 N/A
 
-## Role Variables
+# Role Variables
 
 Example `base_users` variable.
 
@@ -38,17 +38,17 @@ base_groups:
 You can have multiple `base_users` and `base_groups` by adding a suffix to them (e.g. `base_users_test`).
 They will be merged into `base_users` and `base_groups` respectively.
 
-### Optional
+## Optional
 
 `base_hostname` sets the server's hostname.
 
 `base_timezone` sets the server's timezone (e.g. `America/Los_Angeles`).
 
-## Dependencies
+# Dependencies
 
 N/A
 
-## Example Playbook
+# Example Playbook
 
 ```yaml
 - hosts: all
@@ -56,10 +56,10 @@ N/A
     - itsnotgoodname.base
 ```
 
-## License
+# License
 
 MIT
 
-## Author Information
+# Author Information
 
 ItsNotGoodName
