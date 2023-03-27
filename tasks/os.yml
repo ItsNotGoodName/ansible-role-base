@@ -31,7 +31,7 @@
   become: true
   block:
     - name: Update system (Arch)
-      ansible.builtin.pacman:
+      community.general.pacman:
         update_cache: true
         upgrade: true
       tags: never, base_update
@@ -74,7 +74,7 @@
   tags: base
 
 - name: Set timezone
-  ansible.builtin.timezone:
+  community.general.timezone:
     name: "{{ base_timezone }}"
   become: true
   tags: base
