@@ -5,7 +5,6 @@ base_packages:
   - git
   - htop
   - ncdu
-  - ranger
   - rsync
   - tmux
   - unzip

@@ -4,7 +4,6 @@ base_packages:
   - git
   - htop
   - ncdu
-  - ranger
   - rsync--
   - vim--no_x11
 base_sudo_group: wheel
